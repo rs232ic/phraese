@@ -27,7 +27,8 @@ addf stepgen.update-freq servo-thread
 net coolant-mist <= iocontrol.0.coolant-mist
 net coolant-flood <= iocontrol.0.coolant-flood
 
-#net probe-in => motion.probe-input
+net probe-in => motion.probe-input
+
 
 net coolant-mist    => parport.0.pin-01-out
 setp parport.0.pin-02-out-invert 1
@@ -98,5 +99,5 @@ net estop-ext => iocontrol.0.emc-enable-in
 loadusr -W hal_manualtoolchange
 #net tool-change iocontrol.0.tool-change => hal_manualtoolchange.change
 #net tool-changed iocontrol.0.tool-changed <= hal_manualtoolchange.changed
-net tool-number iocontrol.0.tool-prep-number => hal_manualtoolchange.number
-net tool-prepare-loopback iocontrol.0.tool-prepare => iocontrol.0.tool-prepared
+#net tool-number iocontrol.0.tool-prep-number => hal_manualtoolchange.number
+#net tool-prepare-loopback iocontrol.0.tool-prepare => iocontrol.0.tool-prepared

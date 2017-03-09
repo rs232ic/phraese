@@ -4,5 +4,8 @@ unlinkp iocontrol.0.tool-changed
 
 net tool-change-loop  iocontrol.0.tool-change  iocontrol.0.tool-changed
 
+#Forums Advise 
+net tool-prep-loop  iocontrol.0.tool-prepare iocontrol.0.tool-prepared
+
 # rest is in gladevcp.hal
 
