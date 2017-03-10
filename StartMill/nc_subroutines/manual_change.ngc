@@ -50,9 +50,12 @@ g53 g0 Z #<_ini[toolsensor]z>
 ; probe tool length
 M64 P  #<_ini[pins]probing> ; turn on probing led
 
-F #<_ini[toolsensor]probefeed>
+F #<_ini[toolsensor]first_probespeed>
 G91 (relative mode)
 G38.3 Z #<_ini[toolsensor]maxprobe>
+G0 Z #<_ini[toolsensor]relativ_retraction_hight>
+F #<_ini[toolsensor]secound_probespeed>
+G38.3 Z -[#<_ini[toolsensor]relativ_retraction_hight>+2] 
 
 ; we must execute this only in the milltask interpreter
 ; or preview will break, so test for '#<_task>' which is 1 for 
