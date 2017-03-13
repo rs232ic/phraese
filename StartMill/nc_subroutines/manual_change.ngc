@@ -12,6 +12,9 @@ o<manual_change> sub
 G21 (TLO and toolchange position is in mm as per ini)
 G90 (absolute)
 
+;turn off spindle
+M5
+
 ; move to toolchange position: z, then xy
 g53 g0 Z #<_ini[change_position]z>
 g53 g0 X #<_ini[change_position]x> Y #<_ini[change_position]y>
