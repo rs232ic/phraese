@@ -12,9 +12,6 @@ o<manual_change> sub
 G21 (TLO and toolchange position is in mm as per ini)
 G90 (absolute)
 
-;turn off spindle
-M5
-
 ; move to toolchange position: z, then xy
 g53 g0 Z #<_ini[change_position]z>
 g53 g0 X #<_ini[change_position]x> Y #<_ini[change_position]y>
@@ -53,12 +50,9 @@ g53 g0 Z #<_ini[toolsensor]z>
 ; probe tool length
 M64 P  #<_ini[pins]probing> ; turn on probing led
 
-F #<_ini[toolsensor]first_probespeed>
+F #<_ini[toolsensor]probefeed>
 G91 (relative mode)
 G38.3 Z #<_ini[toolsensor]maxprobe>
-G0 Z #<_ini[toolsensor]relativ_retraction_hight>
-F #<_ini[toolsensor]secound_probespeed>
-G38.3 Z -[#<_ini[toolsensor]relativ_retraction_hight>+2] 
 
 ; we must execute this only in the milltask interpreter
 ; or preview will break, so test for '#<_task>' which is 1 for 

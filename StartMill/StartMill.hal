@@ -35,20 +35,16 @@ setp parport.0.pin-02-out-invert 1
 net xdir            => parport.0.pin-02-out
 net xstep           => parport.0.pin-03-out
 setp parport.0.pin-03-out-reset 1
-
 setp parport.0.pin-04-out-invert 1
 net ydir            => parport.0.pin-04-out
 net ystep           => parport.0.pin-05-out
 setp parport.0.pin-05-out-reset 1
-
 net zdir            => parport.0.pin-06-out
 net zstep           => parport.0.pin-07-out
 setp parport.0.pin-07-out-reset 1
-
 net adir            => parport.0.pin-08-out
 net astep           => parport.0.pin-09-out
 setp parport.0.pin-09-out-reset 1
-
 net coolant-flood   => parport.0.pin-14-out
 net charge-pump     => parport.0.pin-16-out
 net xenable         => parport.0.pin-17-out
