@@ -1,0 +1,8 @@
+loadrt abs names=abs_spindle_feedback
+addf abs_spindle_feedback servo-thread
+
+net spindle-speed-limited  =>  abs_spindle_feedback.in
+net spindle-abs  spindle-vfd.spindle-speed-fb =>  gmoccapy.spindle_feedback_bar
+net spindle-at-speed  motion.spindle-at-speed =>    gmoccapy.spindle_at_speed_led
+
+
