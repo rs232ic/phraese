@@ -29,22 +29,29 @@ net coolant-flood <= iocontrol.0.coolant-flood
 
 net probe-in => motion.probe-input
 
+net estop-out <= iocontrol.0.user-enable-out
+net estop-ext => iocontrol.0.emc-enable-in
+
 
 net coolant-mist    => parport.0.pin-01-out
 setp parport.0.pin-02-out-invert 1
 net xdir            => parport.0.pin-02-out
 net xstep           => parport.0.pin-03-out
 setp parport.0.pin-03-out-reset 1
+
 setp parport.0.pin-04-out-invert 1
 net ydir            => parport.0.pin-04-out
 net ystep           => parport.0.pin-05-out
 setp parport.0.pin-05-out-reset 1
+
 net zdir            => parport.0.pin-06-out
 net zstep           => parport.0.pin-07-out
 setp parport.0.pin-07-out-reset 1
+
 net adir            => parport.0.pin-08-out
 net astep           => parport.0.pin-09-out
 setp parport.0.pin-09-out-reset 1
+
 net coolant-flood   => parport.0.pin-14-out
 net charge-pump     => parport.0.pin-16-out
 net xenable         => parport.0.pin-17-out
@@ -92,12 +99,3 @@ net zstep <= stepgen.2.step
 net zdir <= stepgen.2.dir
 net zenable axis.2.amp-enable-out => stepgen.2.enable
 net home-z => axis.2.home-sw-in
-
-net estop-out <= iocontrol.0.user-enable-out
-net estop-ext => iocontrol.0.emc-enable-in
-
-loadusr -W hal_manualtoolchange
-#net tool-change iocontrol.0.tool-change => hal_manualtoolchange.change
-#net tool-changed iocontrol.0.tool-changed <= hal_manualtoolchange.changed
-#net tool-number iocontrol.0.tool-prep-number => hal_manualtoolchange.number
-#net tool-prepare-loopback iocontrol.0.tool-prepare => iocontrol.0.tool-prepared

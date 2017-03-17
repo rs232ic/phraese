@@ -60,10 +60,13 @@ net remote-program-run halui.program.run <= and2.0.out
 # Home button
 net home halui.home-all <= xhc-hb04.button-home
 
-# X=0, Y=0, Z=0 
+# Set Touchoff
 net x0 halui.mdi-command-00 <= xhc-hb04.button-zero-x
 net y0 halui.mdi-command-01 <= xhc-hb04.button-zero-y
 net z0 halui.mdi-command-02 <= xhc-hb04.button-zero-z
 
+# G0 Homing Positon
+net fast-home halui.mdi-command-04 xhc-hb04.button-macro-1
 
-#net origin halui.mdi-command-03 xhc-hb04.button-goto-zero
+# G0 X0 Y0
+net origin halui.mdi-command-05 xhc-hb04.button-goto-zero
