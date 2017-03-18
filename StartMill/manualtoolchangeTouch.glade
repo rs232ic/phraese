@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <glade-interface>
+  <!-- interface-requires gladevcp 0.0 -->
+  <!-- interface-requires gladevcp 0.0 -->
   <!-- interface-requires gtk+ 2.12 -->
-  <!-- interface-requires gladevcp 0.0 -->
-  <!-- interface-requires gladevcp 0.0 -->
   <!-- interface-naming-policy project-wide -->
   <widget class="GtkWindow" id="window1">
     <property name="can_focus">False</property>
@@ -14,99 +14,14 @@
           <widget class="HAL_Table" id="enable">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="n_rows">6</property>
+            <property name="n_rows">4</property>
             <property name="n_columns">2</property>
-            <child>
-              <widget class="HAL_Button" id="changed">
-                <property name="label" translatable="yes">Change 
-complete</property>
-                <property name="width_request">60</property>
-                <property name="height_request">60</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-              </widget>
-              <packing>
-                <property name="top_attach">2</property>
-                <property name="bottom_attach">3</property>
-                <property name="x_options"/>
-                <property name="y_options"/>
-              </packing>
-            </child>
-            <child>
-              <widget class="HAL_ToggleButton" id="reftool">
-                <property name="label" translatable="yes">Ref. Tool</property>
-                <property name="width_request">60</property>
-                <property name="height_request">60</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
-              </widget>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="right_attach">2</property>
-                <property name="top_attach">2</property>
-                <property name="bottom_attach">3</property>
-                <property name="x_options"/>
-                <property name="y_options"/>
-              </packing>
-            </child>
-            <child>
-              <widget class="HAL_Label" id="currlen">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Tool Offset: %f</property>
-                <property name="label_pin_type">1</property>
-                <property name="text_template">Curr. Z length: %f</property>
-              </widget>
-              <packing>
-                <property name="top_attach">3</property>
-                <property name="bottom_attach">4</property>
-                <property name="x_options"/>
-                <property name="y_options"/>
-                <property name="y_padding">4</property>
-              </packing>
-            </child>
             <child>
               <widget class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Change Tool</property>
               </widget>
-              <packing>
-                <property name="top_attach">1</property>
-                <property name="bottom_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="HAL_LED" id="probing-led">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="led_blink_rate">0</property>
-                <property name="led_size">14</property>
-                <property name="pick_color_on">#1525ffff4fdc</property>
-              </widget>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="right_attach">2</property>
-                <property name="top_attach">1</property>
-                <property name="bottom_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <widget class="HAL_Label" id="reflen">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Ref. Tool length: %f</property>
-                <property name="label_pin_type">1</property>
-                <property name="text_template">Ref. Tool length: %f</property>
-              </widget>
-              <packing>
-                <property name="top_attach">4</property>
-                <property name="bottom_attach">5</property>
-              </packing>
             </child>
             <child>
               <widget class="HAL_LED" id="change-led">
@@ -122,31 +37,45 @@ complete</property>
               </packing>
             </child>
             <child>
+              <widget class="HAL_Label" id="currlen">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Tool Offset: %f</property>
+                <property name="label_pin_type">1</property>
+                <property name="text_template">Curr. Z Offset: %f</property>
+              </widget>
+              <packing>
+                <property name="right_attach">2</property>
+                <property name="top_attach">1</property>
+                <property name="bottom_attach">2</property>
+                <property name="y_padding">4</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="HAL_Label" id="reflen">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Ref. Tool length: %f</property>
+                <property name="label_pin_type">1</property>
+                <property name="text_template">Ref. Tool length: %f</property>
+              </widget>
+              <packing>
+                <property name="right_attach">2</property>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
+              </packing>
+            </child>
+            <child>
               <widget class="GtkLabel" id="change-text">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xpad">1</property>
               </widget>
               <packing>
-                <property name="top_attach">5</property>
-                <property name="bottom_attach">6</property>
+                <property name="right_attach">2</property>
+                <property name="top_attach">3</property>
+                <property name="bottom_attach">4</property>
               </packing>
-            </child>
-            <child>
-              <widget class="GtkLabel" id="label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Probing Enabled</property>
-              </widget>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-            <child>
-              <placeholder/>
             </child>
           </widget>
           <packing>

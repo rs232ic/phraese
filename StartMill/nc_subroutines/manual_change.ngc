@@ -12,25 +12,26 @@ o<manual_change> sub
 G21 (TLO and toolchange position is in mm as per ini)
 G90 (absolute)
 
-;turn off spindle
+
+G53 G0 Z #<_ini[change_position]z>
 M5
 
-; move to toolchange position: z, then xy
-g53 g0 Z #<_ini[change_position]z>
-g53 g0 X #<_ini[change_position]x> Y #<_ini[change_position]y>
+; User Message 
+; Wait for User to clear the Change Postion 
+M64 P #<_ini[pins]clear>
+M66 P #<_ini[pins]cleared> L2 Q#<_ini[dwell]ack_secs>
+M65 P #<_ini[pins]clear>
+
+G53 G0 X #<_ini[change_position]x> Y #<_ini[change_position]y>
 
 ; indicate tool number to be loaded
 M68 E #<_ini[pins]toolno> Q #<_selected_tool>
 
-; enable table
-M64 P  #<_ini[pins]enable> 
-
-; signal user to change tool
-M64 P  #<_ini[pins]change> 
-
-; and wait for acknowledgement
-M66 P #<_ini[pins]changed> L1 Q#<_ini[dwell]ack_secs>
-M65 P #<_ini[pins]change> ; drop change pin
+; User Message
+; Wait for tool Change
+M64 P #<_ini[pins]change>
+M66 P #<_ini[pins]changed> L2 Q#<_ini[dwell]ack_secs>
+M65 P #<_ini[pins]change>
 
 
 ;see if we timed out
@@ -40,62 +41,56 @@ O100 if [#5399 EQ -1]
 O100    return [-1] ; indicate timeout failure to epilog
 O100 endif
 
-O200 if [#<_selected_tool> EQ 0]   ; an unload.
-        M65 P  #<_ini[pins]enable> ; disable table
-	O<restore> call [#<metric>] [#<absolute>] [#<feed>]
-O200    return [1] ; indicate success
-O200 endif
 
 ; tool changed - move to toolensor
-g53 g0 X #<_ini[toolsensor]x> Y #<_ini[toolsensor]y>
-g53 g0 Z #<_ini[toolsensor]z>
+G53 G0 X #<_ini[toolsensor]x> Y #<_ini[toolsensor]y>
+G53 G0 Z #<_ini[toolsensor]z>
 
-; probe tool length
-M64 P  #<_ini[pins]probing> ; turn on probing led
-
+; First Fast Probe
 F #<_ini[toolsensor]first_probespeed>
 G91 (relative mode)
 G38.3 Z #<_ini[toolsensor]maxprobe>
+
+; Slow secound Probe
 G0 Z #<_ini[toolsensor]relativ_retraction_hight>
 F #<_ini[toolsensor]secound_probespeed>
 G38.3 Z -[#<_ini[toolsensor]relativ_retraction_hight>+2] 
 
+
 ; we must execute this only in the milltask interpreter
 ; or preview will break, so test for '#<_task>' which is 1 for 
 ; the milltask interpreter and 0 in the UI's
-
-O300 if [[#<_task> GT 0] and [#5070 EQ 0]]
+O200 if [[#<_task> GT 0] and [#5070 EQ 0]]
 	O<restore> call [#<metric>] [#<absolute>] [#<feed>]
-O300    return [-2] ; indicate probe contact failure to epilog
-O300 endif
+O200    return [-2] ; indicate probe contact failure to epilog
+O200 endif
 
+; User Message 
+; Wait for User to clear the Change Postion
+M64 P #<_ini[pins]reftool>
+M66 P #<_ini[pins]reftool-wait> L2 Q#<_ini[dwell]ack_secs>
+M65 P #<_ini[pins]reftool>
 
-; see wether this was the reference tool:
-M66 P #<_ini[pins]reftool> L0
+M66 P #<_ini[pins]reftool-answer> L0
 
-O400 if [#5399 EQ 1]
+O300 if [#5399 EQ 1]
     #1000=#5063 (save reference tool length)
     M68 E #<_ini[pins]reflen> Q #1000
     (print,reference length is #1000)
-O400 else
+O300 else
      g43.1 z[#5063-#1000] (set new tool offset)
      M68 E #<_ini[pins]currlen> Q [#5063-#1000]
      (print,new length is #5063)
-O400 endif 
-
-M65 P #<_ini[pins]probing> ; drop probing led
-M65 P  #<_ini[pins]enable> ; disable table
+O300 endif 
 
 G90 (absolute)
 
-
-; move back to toolchange position: z, then xy
-g53 g0 Z #<_ini[SAVE_RESTART_POSITION]z>
-g53 g0 X #<_ini[SAVE_RESTART_POSITION]x> Y #<_ini[SAVE_RESTART_POSITION]y>
+;Go to safe Resatart Positon
+G53 G0 Z #<_ini[SAVE_RESTART_POSITION]z>
+G53 G0 X #<_ini[SAVE_RESTART_POSITION]x> Y #<_ini[SAVE_RESTART_POSITION]y>
 
 ; restore g20/21, g90/g91, feed
 O<restore> call [#<metric>] [#<absolute>] [#<feed>]
 
-; succeed by returning a positive value
 o<manual_change> endsub [1]
 m2
