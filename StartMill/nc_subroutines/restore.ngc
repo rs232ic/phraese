@@ -21,6 +21,5 @@ O300 endif
 O500 if [#3 NE #<_feed>]
      F[#3]
 O500 endif
-
 O<restore> endsub
 m2

@@ -18,4 +18,4 @@ net currlen	   motion.analog-out-02   =>  gladevcp.currlen
 net cleared        gmoccapy.messages.clear-waiting     =>  motion.digital-in-00
 net changed        gmoccapy.messages.change-waiting    =>  motion.digital-in-01
 net reftool-wait   gmoccapy.messages.referenz-waiting  =>  motion.digital-in-02
-net reftool-answer gmoccapy.messages.referenz-responce =>  motion.digital-in-03
+net reftool-answer gmoccapy.messages.referenz-response =>  motion.digital-in-03
