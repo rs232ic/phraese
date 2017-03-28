@@ -35,16 +35,29 @@ net jog-minus-z xhc-hb04.jog.minus-z => halui.axis.z.minus
 #net jog-minus-a xhc-hb04.jog.minus-a => halui.axis.a.minus
 
 # Wheel for feedrate and spindle
-setp halui.feed-override.scale 0.1
-net jog-counts => halui.feed-override.counts
-net jog-feed halui.feed-override.count-enable <= xhc-hb04.jog.enable-feed-override
-net jog-feed2 halui.feed-override.value => xhc-hb04.feed-override
+#net jog-counts <= xhc-hb04.jog.counts
 
-setp halui.spindle-override.scale 0.1
-net jog-counts => halui.spindle-override.counts
-net jog-spindle halui.spindle-override.count-enable <= xhc-hb04.jog.enable-spindle-override
-net jog-spindle2 halui.spindle-override.value => xhc-hb04.spindle-override
-net spindle-rps motion.spindle-speed-cmd-rps => xhc-hb04.spindle-rps
+#setp halui.feed-override.scale 0.1
+#net jog-counts => gmoccapy.feed.feed-override.counts
+#net jog-feed gmoccapy.feed.feed-override.count-enable <= xhc-hb04.jog.enable-feed-override
+
+#net jog-feed-out gmoccapy.feed-override.value => xhc-hb04.feed-override
+
+
+#setp halui.spindle-override.scale 0.1
+#net jog-counts  => gmoccapy.spindle.spindle-override.counts
+#net jog-spindle gmoccapy.spindle.spindle-override.count-enable <= xhc-hb04.jog.enable-spindle-override
+
+#net jog-spindle-out gmoccapy.spindle-override.value => xhc-hb04.spindle-override
+#net spindle-rps-out  motion.spindle-speed-cmd-rps => xhc-hb04.spindle-rps
+
+
+
+
+
+
+
+
 
 # RESET/ESTOP button
 net estop xhc-hb04.button-reset => halui.estop.activate

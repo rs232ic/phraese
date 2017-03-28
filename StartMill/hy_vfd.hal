@@ -1,7 +1,7 @@
 # Include your customized HAL commands here
 # This file will not be overwritten when you run stepconf again
 
-loadusr -Wn spindle-vfd hy_vfd -n spindle-vfd -d /dev/ttyUSB0 -F 300 -f 50 -V 220 -I 8.6 -S 18000
+loadusr -Wn spindle-vfd hy_vfd -n spindle-vfd -d /dev/ttyUSB0 -F 300 -f 50 -V 220 -I 8.6 -S 18000 -p none -r 19200
 
 setp spindle-vfd.enable 1
 
