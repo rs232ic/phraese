@@ -6,19 +6,19 @@ net spindle-abs spindle-vfd.spindle-speed-fb => gmoccapy.spindle_feedback_bar
 net spindle-at-speed motion.spindle-at-speed => gmoccapy.spindle_at_speed_led
 
 
-# Wheel for feedrate and spindle
-net jog-counts <= xhc-hb04.jog.counts
 
+# Feedrate and Spindle Handwheel Config
+
+net jog-counts <= xhc-hb04.jog.counts
 
 net jog-counts => gmoccapy.feed.feed-override.counts
 net jog-feed gmoccapy.feed.feed-override.count-enable <= xhc-hb04.jog.enable-feed-override
-
-net jog-feed-out gmoccapy.spc_feed.value => xhc-hb04.feed-value
-net jog-feed-override-out gmoccapy.spc_feed.scaled-value => xhc-hb04.feed-override
-
+net jog-feed-override-out motion.current-vel => xhc-hb04.feed-value
+net jog-feed-out halui.feed-override.value => xhc-hb04.feed-override
 
 net jog-counts  => gmoccapy.spindle.spindle-override.counts
-net jog-spindle gmoccapy.spindle.spindle-override.count-enable <= xhc-hb04.jog.enable-spindle-override
+net jog-spindle-override gmoccapy.spindle.spindle-override.count-enable <= xhc-hb04.jog.enable-spindle-override
 
-net jog-spindle-out gmoccapy.spc_spindle.scaled-value => xhc-hb04.spindle-override
-net spindle-rps-out gmoccapy.spc_spindle.value => xhc-hb04.spindle-rps
+
+net spindle-rps-out halui.spindle-override.value => xhc-hb04.spindle-override
+net jog-spindle-out motion.spindle-speed-out-rps-abs =>  xhc-hb04.spindle-rps

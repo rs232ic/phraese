@@ -1,28 +1,36 @@
 
 loadusr -W xhc-hb04 -I xhc-hb04-layout2.ini -H
 
-loadrt and2 count=1
-addf and2.0 servo-thread
-
-# Absolute position LCD
+#####################################################################################
+# 				Absolute position LCD
+#####################################################################################
 net pos-x halui.axis.x.pos-feedback => xhc-hb04.x.pos-absolute
 net pos-y halui.axis.y.pos-feedback => xhc-hb04.y.pos-absolute
 net pos-z halui.axis.z.pos-feedback => xhc-hb04.z.pos-absolute
 #net pos-a halui.axis.a.pos-feedback => xhc-hb04.a.pos-absolute
 
-# Relative position LCD
+
+#####################################################################################
+# 				Relative position LCD
+#####################################################################################
 net pos-rel-x halui.axis.x.pos-relative => xhc-hb04.x.pos-relative
 net pos-rel-y halui.axis.y.pos-relative => xhc-hb04.y.pos-relative
 net pos-rel-z halui.axis.z.pos-relative => xhc-hb04.z.pos-relative
 #net pos-rel-a halui.axis.a.pos-relative => xhc-hb04.a.pos-relative
 
-# Jog axis selection button
+
+#####################################################################################
+# 				Jog axis selection button
+#####################################################################################
 net jog-x axis.x.jog-enable <= xhc-hb04.jog.enable-x
 net jog-y axis.y.jog-enable <= xhc-hb04.jog.enable-y
 net jog-z axis.z.jog-enable <= xhc-hb04.jog.enable-z
 #net jog-a axis.a.jog-enable <= xhc-hb04.jog.enable-a
 
-# Jog wheel for world mode
+
+#####################################################################################
+# 				Jog wheel for world mode
+#####################################################################################
 net jog-max-velocity halui.max-velocity.value => xhc-hb04.jog.max-velocity
 net jog-speed xhc-hb04.jog.velocity => halui.axis.jog-speed 
 net jog-plus-x xhc-hb04.jog.plus-x => halui.axis.x.plus 
@@ -34,52 +42,63 @@ net jog-minus-z xhc-hb04.jog.minus-z => halui.axis.z.minus
 #net jog-plus-a xhc-hb04.jog.plus-a => halui.axis.a.plus 
 #net jog-minus-a xhc-hb04.jog.minus-a => halui.axis.a.minus
 
-# Wheel for feedrate and spindle
-#net jog-counts <= xhc-hb04.jog.counts
 
-#setp halui.feed-override.scale 0.1
-#net jog-counts => gmoccapy.feed.feed-override.counts
-#net jog-feed gmoccapy.feed.feed-override.count-enable <= xhc-hb04.jog.enable-feed-override
+#####################################################################################
+# 				Wheel for feedrate and spindle
+##################################################################################### 
+#Moved to gmocoppy_postgui.hal
 
-#net jog-feed-out gmoccapy.feed-override.value => xhc-hb04.feed-override
-
-
-#setp halui.spindle-override.scale 0.1
-#net jog-counts  => gmoccapy.spindle.spindle-override.counts
-#net jog-spindle gmoccapy.spindle.spindle-override.count-enable <= xhc-hb04.jog.enable-spindle-override
-
-#net jog-spindle-out gmoccapy.spindle-override.value => xhc-hb04.spindle-override
-#net spindle-rps-out  motion.spindle-speed-cmd-rps => xhc-hb04.spindle-rps
-
-
-
-
-
-
-
-
-
-# RESET/ESTOP button
+#####################################################################################
+# 				RESET/ESTOP button
+#####################################################################################
 net estop xhc-hb04.button-reset => halui.estop.activate
 net speed-up xhc-hb04.button-step => xhc-hb04.stepsize-up
 net step xhc-hb04.button-rewind => halui.program.step
 
-#Start/Pause
+
+#####################################################################################
+# 				Pause
+#####################################################################################
 net start halui.mode.auto <= xhc-hb04.button-start-pause
 net start and2.0.in0
 net program-run-ok and2.0.in1 <= halui.mode.is-auto
-net remote-program-run halui.program.run <= and2.0.out
+net remote-program-run halui.program.pause <= and2.0.out
  
-# Home button
+ 
+#####################################################################################
+# 				Home button
+#####################################################################################
 net home halui.home-all <= xhc-hb04.button-home
 
 # Set Touchoff
+#####################################################################################
+# 				Set Touchoff
+#####################################################################################
 net x0 halui.mdi-command-00 <= xhc-hb04.button-zero-x
 net y0 halui.mdi-command-01 <= xhc-hb04.button-zero-y
 net z0 halui.mdi-command-02 <= xhc-hb04.button-zero-z
 
-# G0 Homing Positon
-net fast-home halui.mdi-command-04 xhc-hb04.button-macro-1
 
-# G0 X0 Y0
-net origin halui.mdi-command-05 xhc-hb04.button-goto-zero
+#####################################################################################
+# 				Fast Homing 
+#####################################################################################
+net fast-home halui.mdi-command-04 <= xhc-hb04.button-macro-1
+
+
+#####################################################################################
+# 				G0 X0 Y0
+#####################################################################################
+net origin halui.mdi-command-05 <= xhc-hb04.button-goto-zero
+
+#####################################################################################
+# 				Safe-Z
+#####################################################################################
+net safe-z halui.mdi-command-06 <= xhc-hb04.button-safe-z
+
+#####################################################################################
+# 				Tool-probe
+#####################################################################################
+net tool-probe halui.mdi-command-07 <= xhc-hb04.button-probe-z
+
+
+
