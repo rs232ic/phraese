@@ -1,0 +1,162 @@
+loadrt [KINS]KINEMATICS
+loadrt [EMCMOT]EMCMOT servo_period_nsec=[EMCMOT]SERVO_PERIOD num_joints=[TRAJ]AXES
+
+loadrt hostmot2
+loadrt hm2_pci config="num_encoders=0 num_pwmgens=1 num_stepgens=4"
+
+addf hm2_5i25.0.read          servo-thread
+addf motion-command-handler   servo-thread
+addf motion-controller        servo-thread
+addf hm2_5i25.0.write         servo-thread
+setp hm2_5i25.0.watchdog.timeout_ns  10000000
+
+
+loadrt and2 count=3
+addf and2.0 	servo-thread
+addf and2.1	servo-thread
+addf and2.2	servo-thread
+
+loadrt not count=1
+addf not.0	servo-thread
+
+
+#####################################################################################
+# 				X AXIS
+#####################################################################################
+
+
+setp hm2_5i25.0.stepgen.00.dirsetup       [JOINT_0]DIRSETUP
+setp hm2_5i25.0.stepgen.00.dirhold        [JOINT_0]DIRHOLD
+setp hm2_5i25.0.stepgen.00.steplen        [JOINT_0]STEPLEN
+setp hm2_5i25.0.stepgen.00.stepspace      [JOINT_0]STEPSPACE
+setp hm2_5i25.0.stepgen.00.position-scale [JOINT_0]SCALE
+setp hm2_5i25.0.stepgen.00.step_type 0
+setp hm2_5i25.0.stepgen.00.control-type 0
+setp hm2_5i25.0.stepgen.00.maxaccel       [JOINT_0]MAX_ACCELERATION
+setp hm2_5i25.0.stepgen.00.maxvel         [JOINT_0]MAX_VELOCITY
+
+setp hm2_5i25.0.gpio.004.invert_output    1
+
+net xpos-fb  joint.0.motor-pos-fb   <= hm2_5i25.0.stepgen.00.position-fb
+net xpos-cmd joint.0.motor-pos-cmd  => hm2_5i25.0.stepgen.00.position-cmd
+net xenable  joint.0.amp-enable-out => hm2_5i25.0.stepgen.00.enable
+
+net home-x <= hm2_5i25.0.gpio.013.in
+net home-x => joint.0.home-sw-in
+
+#####################################################################################
+# 				Y AXIS
+#####################################################################################
+
+setp hm2_5i25.0.stepgen.01.dirsetup       [JOINT_1]DIRSETUP
+setp hm2_5i25.0.stepgen.01.dirhold        [JOINT_1]DIRHOLD
+setp hm2_5i25.0.stepgen.01.steplen        [JOINT_1]STEPLEN
+setp hm2_5i25.0.stepgen.01.stepspace      [JOINT_1]STEPSPACE
+setp hm2_5i25.0.stepgen.01.position-scale [JOINT_1]SCALE
+setp hm2_5i25.0.stepgen.01.step_type 0
+setp hm2_5i25.0.stepgen.01.control-type 0
+setp hm2_5i25.0.stepgen.01.maxaccel       [JOINT_1]MAX_ACCELERATION
+setp hm2_5i25.0.stepgen.01.maxvel         [JOINT_1]MAX_VELOCITY
+
+setp hm2_5i25.0.gpio.008.invert_output    1
+
+net ypos-fb  joint.1.motor-pos-fb   <= hm2_5i25.0.stepgen.01.position-fb
+net ypos-cmd joint.1.motor-pos-cmd  => hm2_5i25.0.stepgen.01.position-cmd
+net yenable  joint.1.amp-enable-out => hm2_5i25.0.stepgen.01.enable
+
+net home-y <= hm2_5i25.0.gpio.015.in
+net home-y => joint.1.home-sw-in
+
+
+#####################################################################################
+# 				Z AXIS
+#####################################################################################
+
+setp hm2_5i25.0.stepgen.02.dirsetup       [JOINT_2]DIRSETUP
+setp hm2_5i25.0.stepgen.02.dirhold        [JOINT_2]DIRHOLD
+setp hm2_5i25.0.stepgen.02.steplen        [JOINT_2]STEPLEN
+setp hm2_5i25.0.stepgen.02.stepspace      [JOINT_2]STEPSPACE
+setp hm2_5i25.0.stepgen.02.position-scale [JOINT_2]SCALE
+setp hm2_5i25.0.stepgen.02.step_type 0
+setp hm2_5i25.0.stepgen.02.control-type 0
+setp hm2_5i25.0.stepgen.02.maxaccel       [JOINT_2]MAX_ACCELERATION
+setp hm2_5i25.0.stepgen.02.maxvel         [JOINT_2]MAX_VELOCITY
+
+setp hm2_5i25.0.gpio.010.invert_output   0
+
+net zpos-fb  joint.2.motor-pos-fb   <= hm2_5i25.0.stepgen.02.position-fb
+net zpos-cmd joint.2.motor-pos-cmd  => hm2_5i25.0.stepgen.02.position-cmd
+net zenable  joint.2.amp-enable-out => hm2_5i25.0.stepgen.02.enable
+
+net home-z <= hm2_5i25.0.gpio.016.in
+net home-z => joint.2.home-sw-in
+
+
+#####################################################################################
+# 				A AXIS
+#####################################################################################
+
+# Step Gen signals/setup
+
+setp hm2_5i25.0.stepgen.03.dirsetup       [JOINT_3]DIRSETUP
+setp hm2_5i25.0.stepgen.03.dirhold        [JOINT_3]DIRHOLD
+setp hm2_5i25.0.stepgen.03.steplen        [JOINT_3]STEPLEN
+setp hm2_5i25.0.stepgen.03.stepspace      [JOINT_3]STEPSPACE
+setp hm2_5i25.0.stepgen.03.position-scale [JOINT_3]STEP_SCALE
+setp hm2_5i25.0.stepgen.03.step_type      0
+setp hm2_5i25.0.stepgen.03.control-type   0
+setp hm2_5i25.0.stepgen.03.maxaccel       [JOINT_3]STEPGEN_MAXACCEL
+setp hm2_5i25.0.stepgen.03.maxvel         [JOINT_3]STEPGEN_MAXVEL
+
+# Drehrichtung der A-Achse invertieren
+setp hm2_5i25.0.gpio.012.invert_output    1
+
+net a-pos-fb  joint.3.motor-pos-fb   <= hm2_5i25.0.stepgen.03.position-fb
+net a-pos-cmd joint.3.motor-pos-cmd  => hm2_5i25.0.stepgen.03.position-cmd
+net a-enable  joint.3.amp-enable-out => hm2_5i25.0.stepgen.03.enable
+
+#####################################################################################
+# 				CHARGE PUMP/E-STOP
+#####################################################################################
+
+setp hm2_5i25.0.pwmgen.pwm_frequency 12000
+setp hm2_5i25.0.pwmgen.00.output-type 1
+setp hm2_5i25.0.pwmgen.00.value 0.5
+
+
+net machine-is-on halui.machine.is-on => hm2_5i25.0.pwmgen.00.enable
+
+net estop-out <= iocontrol.0.user-enable-out
+
+net estop-ext => iocontrol.0.emc-enable-in
+net estop-ext <= hm2_5i25.0.gpio.014.in_not
+
+net is-homed-in0.0 and2.1.in0 <= halui.joint.0.is-homed
+net is-homed-in1.0 and2.1.in1 <= halui.joint.1.is-homed
+
+net is-homed-in1.1  and2.2.in1 <= and2.1.out  
+net is-homed-in0.1  and2.2.in0 <= halui.joint.2.is-homed
+
+net is-homed-all-out 	 and2.2.out => not.0.in
+net is-homed-all-out-not not.0.out => motion.feed-inhibit motion.spindle-inhibit
+
+#####################################################################################
+# 				COOLANT/DUST COLLECTION
+#####################################################################################
+
+#FIXME GPIO PIN NOT FOUND 
+setp hm2_5i25.0.gpio.001.is_output true
+net coolant-flood <= iocontrol.0.coolant-flood 
+net coolant-flood   => hm2_5i25.0.gpio.001.out
+
+net coolant-mist  <= iocontrol.0.coolant-mist
+net coolant-mist    => hm2_5i25.0.gpio.000.out
+
+
+#####################################################################################
+# 				TOOL CHANGE PROBE
+#####################################################################################
+
+net probe-in <= hm2_5i25.0.gpio.003.in
+net probe-in => motion.probe-input
+

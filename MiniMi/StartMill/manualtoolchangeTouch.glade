@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<glade-interface>
+  <!-- interface-requires gladevcp 0.0 -->
+  <!-- interface-requires gladevcp 0.0 -->
+  <!-- interface-requires gtk+ 2.12 -->
+  <!-- interface-naming-policy project-wide -->
+  <widget class="GtkWindow" id="window1">
+    <property name="can_focus">False</property>
+    <child>
+      <widget class="GtkTable" id="table1">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <child>
+          <widget class="HAL_Table" id="enable">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="n_rows">4</property>
+            <property name="n_columns">2</property>
+            <child>
+              <widget class="GtkLabel" id="label1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Change Tool</property>
+              </widget>
+            </child>
+            <child>
+              <widget class="HAL_LED" id="change-led">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="led_blink_rate">0</property>
+                <property name="led_size">14</property>
+                <signal name="hal_pin_changed" handler="on_led_change" swapped="no"/>
+              </widget>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="right_attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="HAL_Label" id="currlen">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Tool Offset: %f</property>
+                <property name="label_pin_type">1</property>
+                <property name="text_template">Curr. Z Offset: %f</property>
+              </widget>
+              <packing>
+                <property name="right_attach">2</property>
+                <property name="top_attach">1</property>
+                <property name="bottom_attach">2</property>
+                <property name="y_padding">4</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="HAL_Label" id="reflen">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Ref. Tool length: %f</property>
+                <property name="label_pin_type">1</property>
+                <property name="text_template">Ref. Tool length: %f</property>
+              </widget>
+              <packing>
+                <property name="right_attach">2</property>
+                <property name="top_attach">2</property>
+                <property name="bottom_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="change-text">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xpad">1</property>
+              </widget>
+              <packing>
+                <property name="right_attach">2</property>
+                <property name="top_attach">3</property>
+                <property name="bottom_attach">4</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="x_options"/>
+            <property name="y_options"/>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</glade-interface>

@@ -1,0 +1,13 @@
+
+o<on_abort> sub
+
+(print, on_abort executing)
+
+M65 P #<_ini[pins]change>
+M65 P #<_ini[pins]clear>
+M65 P #<_ini[pins]reftool>
+
+o<reset_state> call
+
+o<on_abort> endsub
+m2

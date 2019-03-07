@@ -1,0 +1,21 @@
+# in case they were linked already
+unlinkp iocontrol.0.tool-change
+unlinkp iocontrol.0.tool-changed
+
+net tool-change-loop  iocontrol.0.tool-change  iocontrol.0.tool-changed
+net tool-prep-loop  iocontrol.0.tool-prepare iocontrol.0.tool-prepared
+   
+setp gladevcp.enable 1
+
+net clear          motion.digital-out-00  =>  gmoccapy.messages.clear
+net change         motion.digital-out-01  =>  gmoccapy.messages.change gladevcp.change-led
+net reftool        motion.digital-out-02  =>  gmoccapy.messages.referenz 
+
+net toolno         motion.analog-out-00   =>  gladevcp.number
+net reflen	   motion.analog-out-01   =>  gladevcp.reflen
+net currlen	   motion.analog-out-02   =>  gladevcp.currlen
+
+net cleared        gmoccapy.messages.clear-waiting     =>  motion.digital-in-00
+net changed        gmoccapy.messages.change-waiting    =>  motion.digital-in-01
+net reftool-wait   gmoccapy.messages.referenz-waiting  =>  motion.digital-in-02
+net reftool-answer gmoccapy.messages.referenz-response =>  motion.digital-in-03
