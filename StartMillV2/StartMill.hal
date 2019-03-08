@@ -157,14 +157,14 @@ setp hm2_5i25.0.pwmgen.pdm_frequency 6000000
 
 setp hm2_5i25.0.pwmgen.00.output-type 1
 setp hm2_5i25.0.pwmgen.00.scale [SPINDLE]PWM_SCALE
-setp hm2_5i25.0.pwmgen.00.enable true
 
 
 setp hm2_5i25.0.gpio.000.is_output true
 
 
 net spindle-vel-cmd    motion.spindle-speed-out => hm2_5i25.0.pwmgen.00.value
-net spindle-on         motion.spindle-on => hm2_5i25.0.gpio.000.out 
+net spindle-on         motion.spindle-on => hm2_5i25.0.gpio.000.out hm2_5i25.0.pwmgen.00.enable
+
 
 
 
